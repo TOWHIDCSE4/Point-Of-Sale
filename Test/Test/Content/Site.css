@@ -1,0 +1,327 @@
+﻿
+html {
+    position: relative;
+    min-height: 100%;
+   
+}
+
+body {
+    margin-bottom: 80px;
+}
+
+/* #region Navbar styles */
+.navbar-header {
+    border-bottom: 1px solid rgba(255,255,255, 0.1);
+}
+/* #endregion */
+
+
+/* #region Footer styles */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.85em;
+}
+/* #endregion */
+
+/* #region custom Kendo UI styles */
+#configure {
+    display: none;
+}
+
+.k-panelbar .k-content {
+    padding: 20px;
+}
+
+p .k-button {
+    margin: 0 15px 0 0;
+}
+
+.k-state-active .label {
+    font-size: 1em;
+}
+
+/* #endregion */
+
+@media (max-width: 767px) {
+    #responsive-panel {
+        transition: all linear .2s;
+    }
+
+    #configure {
+        display: block;
+        float: right;
+    }
+
+    .k-rpanel {
+        width: 100%;
+    }
+
+    .k-rpanel-expanded {
+        margin-top: 1rem;
+    }
+
+    .navbar-header {
+        width: 100%;
+    }
+
+    .footer {
+        height: 60px;
+    }
+
+    .k-menu .k-item,
+    .k-menu .k-link {
+        width: 100%;
+    }
+
+    .k-menu .k-link {
+        box-sizing: border-box;
+    }
+
+
+
+/*    add CSS Customizeds*/
+}
+
+
+
+/*Scheduler Appoiment css part */
+
+.btn {
+    border: none;
+    background-color: inherit;
+    padding: 5px;
+    font-size: 16px;
+    height: 40px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .btn:hover {
+        background: #eee;
+    }
+
+.success {
+    color: #0072bc;
+}
+
+
+
+
+.k-autocomplete {
+    left: 60px;
+}
+
+.k-autocomplete-clearable {
+    left: 60px;
+}
+
+a.k-button.w3-button.w3-black {
+    left: 70px;
+    width: 45px;
+    height: 37px;
+}
+.k-grouping-header {
+    display: none;
+}
+
+.k-scheduler-delete {
+    background-color: red;
+}
+
+.k-image {
+    width: 19px;
+}
+
+.waitngtext {
+    margin-left: 478px;
+    height: 28px;
+}
+
+.waitingButton {
+    padding: 0px;
+    border: none;
+    border-width: 0px;
+    border-color: antiquewhite;
+    background-color: inherit;
+    /* left: 573px;
+    top: 60px;*/
+    top: 8px;
+    left: 400px;
+}
+
+.waitingButtonBorder {
+    border-color: white;
+    color: #003f59;
+    background-color: inherit;
+  /*  left: 395px;*/
+}
+
+.form-control {
+    border-radius: .2rem;
+    padding-top: -0.625rem;
+    padding-right: -0.25rem;
+    padding-bottom: -0.625rem;
+    padding-left: -0.25rem;
+    height: calc(1.50rem + 0px);
+    width: 90%;
+    font-size: x-small;
+}
+
+.form {
+    height: 380px;
+    border-top-width: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.btnSubmit {
+    border: none;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+    margin-top: 50px;
+    margin-left: 193px;
+}
+
+.note {
+    text-align: center;
+    height: 80px;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+}
+
+.bookingcancelbutton {
+    border: none;
+    padding: 1%;
+    width: 20px;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+    margin-left: 193px;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.text-muted {
+    /*color: white !important;*/
+    font-size: x-small;
+}
+
+
+
+/*BookingList CSS PART */
+.k-autocomplete {
+    left: 81px;
+}
+
+.k-autocomplete-clearable {
+    left: 81px;
+}
+
+a.k-button.w3-button.w3-black {
+    left: 137px;
+    top: 0px;
+}
+
+a.k-button.w3-button.w3-black {
+    left: 137px;
+    width: 45px;
+    height: 37px;
+   
+}
+
+.k-view-timeline{
+    display:none;
+}
+
+.sbutton{
+    border-color: white;
+    color: #126183;
+    background-color: #126183;
+    left: 60px;
+    top: 26px;
+    padding: 0px;
+    border: none;
+    border-width: 0px;
+    border-color: antiquewhite;
+    background-color: inherit;
+}
+
+
+nav.navbar.navbar-inverse.navbar-fixed-top.p-3 {
+    display: none;
+}
+
+
+.navbar {
+    width: 100%;
+    background-color: #f2f2f2;
+    overflow: auto;
+    left: 0px;
+    top: 80px;
+   
+}
+
+    .navbar a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+        .navbar a:hover {
+           /* background-color: #f2f2f2;*/
+        }
+
+.active {
+    background-color: steelblue;
+    margin-left: 5px;
+}
+
+div#scheduler {
+    border: 10px solid #f2f2f2;
+    
+}
+
+/*.k-scheduler-calendar.k-widget.k-calendar {
+    right: 20em;
+    position: fixed;
+}
+*/
+.k-edit-buttons {
+    background-color: white;
+}
+
+
+.k-header.k-grid-toolbar {
+    background-color: steelblue;
+}
+
+.fa {
+    background-color: steelblue;
+    color: white;
+}
+
+
+
+.k-grid tbody .k-button {
+    min-width: 64px;
+    position: inherit;
+}
+
+
+a.k-button.k-button-icontext.k-grid-add {
+    width: 102px;
+    left: 1188px;
+    top: -81px;
+}
+

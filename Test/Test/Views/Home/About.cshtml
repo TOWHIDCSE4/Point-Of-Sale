@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content" style="width: 500px;">
+        <header class="note w3-container w3-teal">
+            <span onclick="document.getElementById('id01').style.display='none'"
+                  class="note w3-button w3-display-topright" style=" padding-bottom: 0px; padding-top: 0px;">&times;</span>
+            <h2>Add New Customer </h2>
+        </header>
+
+        <div class="container register-form" style=" height: 450px;">
+            <div class="form" style="height:380px">
+                <div class="row" style=" height: 337px; ">
+                    <div class="row ">
+
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font"> Customer Code</span>
+                            <input type="text" class="form-control" placeholder="Customer Code" required />
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Phone 1</span>
+                            <input type="text" class="form-control" placeholder="Phone 1" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">  Customer Name</span>
+                            <input type="text" class="form-control" placeholder="Customer Name" required />
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font"> Date of Birth </span>
+                            <input type="date" class="form-control" name="birthday">
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font"> Address 1</span>
+                            <input type="text" class="form-control" placeholder="Address 1" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">  Address 2</span>
+                            <input type="text" class="form-control" placeholder="Address 2" />
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font"> Province</span>
+                            <select name="Province" class="form-control">
+                                <option value="Hanoi">Hanoi</option>
+                                <option value="HMC">HMC City</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Email</span>
+                            <input type="email" class="form-control" placeholder="Email" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Company</span>
+                            <input type="text" class="form-control" placeholder="Company" />
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Department</span>
+                            <input type="text" class="form-control" placeholder="Department" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Gender</span>
+                            <select name="Province" class="form-control">
+                                <option value="MALE">MALE</option>
+                                <option value="FEMALE">FEMALE</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Current Debt</span>
+                            <input type="number" class="form-control" placeholder="Current Debt" />
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Bonus Point</span>
+                            <input type="number" class="form-control" placeholder="Bonus Point" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Tax Code</span>
+                            <input type="text" class="form-control" placeholder="Tax Code" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Managed By</span>
+                            <select name="managedby" class="form-control">
+                                <option value="debit ">debit card</option>
+                                <option value="credit ">credit card</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">Descripation</span>
+                            <textarea type="text" class="form-control" placeholder="Descripation" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font">  Image</span>
+                            <input type="file" class="form-control" id="myFile" name="filename">
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <button type="button" class="btnSubmit">Submit</button>
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" style=" width: 100px;" class="btn btn-danger">Cancel</button>
+
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#links-treeview").kendoTreeView();
+    });
+</script>

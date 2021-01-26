@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section featured {
+    <div class="featured">
+        @*<div class="jumbotron">
+            <h1>ASP.NET</h1>
+            <p class="lead text-muted">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+            <p><a href="http://asp.net" class="k-button k-primary">Learn more &raquo;</a></p>
+        </div>*@
+    </div>
+}
+
+<h4>Kendo UI PanelBar</h4>
+<br />
+<ul id="panelbar">
+    <li class="k-state-active">
+        <span class="k-link k-state-selected">Getting Started</span>
+        <div style="padding: 10px;">
+            <p style="padding:0 1em">
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and that gives you full control over markup
+                for enjoyable, agile development. ASP.NET MVC includes many features that enable
+                fast, TDD-friendly development for creating sophisticated applications that use
+                the latest web standards.
+                <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more...</a>
+            </p>
+        </div>
+    </li>
+    <li>
+        Add NuGet packages and jump-start your coding
+        <div>
+            <p style="padding:0 1em">
+                NuGet makes it easy to install and update free libraries and tools.
+                <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more...</a>
+            </p>
+        </div>
+    </li>
+    <li>
+        Find Web Hosting
+        <div>
+            <p style="padding:0 1em">
+                You can easily find a web hosting company that offers the right mix of features
+                and price for your applications.
+                <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more...</a>
+            </p>
+        </div>
+    </li>
+</ul>
+<script>
+    $(function () {
+        $("#panelbar").kendoPanelBar();
+    });
+</script>

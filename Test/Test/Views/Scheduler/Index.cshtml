@@ -1,0 +1,691 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+
+</head>
+<body>
+   
+
+    @*customer waiting List *@
+    <div id="example" ng-app="KendoDemos" style="width:500px;height:500px;">
+        <div ng-controller="Host">
+            <div kendo-window="editPopup"
+                 k-modal="true"
+                 k-title="'Customer Waiting List'"
+                 k-width="1200"
+                 k-resizable="false"
+                 k-height="600"
+                 k-visible="false">
+
+                <div ng-controller="Popup">
+                    <div id="grid"></div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: -37px;">
+                <div class="row">
+                    @*Booking Calendar and ICON*@
+                    <div class="col-sm-5" style="top:118px">
+                        <button class="btn" style="background-color:steelblue; color:white"><i class="fa fa-filter" style="font-size:20px;color:white"></i></button>
+                        <button class="btn" style="background-color:white; color:steelblue"> BOOKING CALENDAR</button>
+                    </div>
+                    @*Booking and ICON*@
+                <div class="col-sm-4" style="margin-left:780px; top: 80px;left: 243px;">
+                    <div id="BookingButton" style="width: 115px;">
+                        <div id="container">
+                            <button id="open" class="k-button">Open</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+                    @*Side calendar*@
+                    <div class="row">
+                        <div class="col-sm-1" style="top:89px;">
+                            <div class="demo-section k-content">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+
+                        @*Scheduler And Booking Button*@
+                        <div class="col-6" style="top:55px;left:213px;">
+                            <button class="w3-button w3-steelblue" style="background-color:steelblue">
+                                <a href="http://localhost:65133/Scheduler/Index">
+                                    <i class="fa fa-fw fa-home"></i>
+                                    <font color='white'>Scheduler
+                                </a></font>
+                            </button>
+
+                            <button class="w3-button w3-steelblue" style="background-color:steelblue; margin-left: 5px;">
+                                <a href="http://localhost:65133/Booking/Index">
+                                    <i class="fa fa-fw fa-home"></i>
+                                    <font color='white'>Booking
+                                </a></font>
+                            </button>
+                        </div>
+
+                        @*Waiting list icon Button *@
+                        <div class="col-1" style="height: 20px;top: 44px; left: 240px; width: 41px;">
+                            <button kendo-button ng-click="Show()" class="waitingButtonBorder"><span class="waitingButtonBorder" id="wc"></span></button>
+                            @*<p class="waitngtext" id="text"></p>*@
+                        </div>
+                        @*Waiting List Text button*@
+                        <div class="col-1" style="height:30px;top:40px; left:-178px; width:44px;">
+                            <button kendo-button ng-click="Show()" class="waitingButton"><span class="btn success" id="text"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-8" style="left:228px;top:-285px;">
+            <div id="example" class="k-content" style=" margin-top: 50px; width: 880px;">
+                <div id="scheduler"></div>
+            </div>
+
+
+            @*Scheduler card Name And Phone Number show*@
+            <script id="template_title" type="text/x-kendo-template">
+                <div class="movie-template">
+                    @*#console.log(RoomID);#
+                        #if(RoomID != 1) {#*@
+                    <div class="movie-template">
+                        <p>#: title #</p>
+                        <p>#:data.PhoneNumber1#</p>
+                    </div>
+
+                </div>
+            </script>
+
+            @*Agenda Template card show*@
+            <script id="agenda-template" type="text/x-kendo-template">
+                <div class='event-template'>
+                    <span>#: title #</span>
+                </div>
+            </script>
+
+            @*Card show customer name start time and end time*@
+            <script id="template" type="text/x-kendo-template">
+                #var element = target;#
+                #var uid = element.attr("data-uid");#
+                #var scheduler = target.closest("[data-role=scheduler]").data("kendoScheduler");#
+                #var model = scheduler.occurrenceByUid(uid);#
+
+                #if(model) {#
+                <strong>Customer:</strong> #=model.title#
+                <br />
+                <strong>Start:</strong> #=kendo.format('{0:d}',model.start)#
+                <br />
+                <strong>End:</strong> #=kendo.format('{0:d}',model.end)#
+                <br />
+                #} else {#
+                <strong>No event data is available</strong>
+                #}#
+            </script>
+
+
+
+            @*Event scheduler customized template*@
+            <script id="customEditorTemplate" type="text/x-kendo-template">
+
+                <!-- notice how the Title is hidden if the event is new -->
+                <div class="row ">
+                    <div class="col-md-5">
+                        @*Customer name Autocomplete*@
+                        <div class="k-edit-label"><label for="title" style=" margin-left: 32px;">Customer</label></div>
+                        <div data-container-for="title" data-bind="value:title" class="k-edit-field">
+                            <input data-bind="value:title"
+                                   @(Html.Kendo().AutoComplete().Name("CustomerName").HtmlAttributes(new { required = "required" }).Events(e => e.Select("onChangeMyTextBox").Change("selectCustomerid")).Filter("StartsWith").DataSource(source => source.Read(read => read.Action("Template_GetCustomers", "Scheduler").Data("OnAddAuto")).ServerFiltering(true)).NoDataTemplateId("noDataTemplate").DataTextField("Title").Value("ID").Placeholder("Customer Name..").ToClientTemplate() )
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-5" style="left: 60px;">
+
+                        <a href="/CreateCustomers/Create" class="k-button w3-button w3-black" style="left:70px">
+                            <span class="k-icon k-i-plus"></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div data-container-for="customerID" class="k-edit-field">
+                    <input type="hidden" class="k-textbox" name="CustomerID" data-text-field="text" data-bind="value:customerID" />
+                </div>
+
+
+                <div class="k-edit-label"><label for="bookingID">Code</label></div>
+                <div data-container-for="bookingID" class="k-edit-field">
+                    <input type="text" class="k-textbox" disabled="disabled" name="BookingID" data-text-field="text" placeholder="Booking Code.." data-bind="value:bookingID" id="BookingID" />
+
+                </div>
+
+                <div class="k-edit-label">
+                    <label for="start">Start</label>
+                </div>
+                <div data-container-for="start" class="k-edit-field">
+                    <input type="text"
+                           data-role="datetimepicker"
+                           data-interval="15"
+                           data-type="date"
+                           data-bind="value:start,invisible:isAllDay"
+                           name="start" />
+                    <input type="text" data-type="date" data-role="datepicker" data-bind="value:start,visible:isAllDay" name="start" />
+                    <span data-bind="text: startTimezone"></span>
+                    <span data-for="start" class="k-invalid-msg" style="display: none;"></span>
+                </div>
+                <div class="k-edit-label"><label for="end">End</label></div>
+                <div data-container-for="end" class="k-edit-field">
+                    <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+                    <input type="text" data-type="date" data-role="datepicker" data-bind="value:end,visible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+                    <span data-bind="text: endTimezone"></span>
+                    <span data-bind="text: startTimezone, invisible: endTimezone"></span>
+                    <span data-for="end" class="k-invalid-msg" style="display: none;"></span>
+                </div>
+                <div class="k-edit-label"><label for="isAllDay">All day event</label></div>
+                <div data-container-for="isAllDay" class="k-edit-field">
+                    <input type="checkbox" name="isAllDay" data-type="boolean" data-bind="checked:isAllDay">
+                </div>
+                <div class="k-edit-label"><label for="recurrenceRule">Repeat</label></div>
+                <div data-container-for="recurrenceRule" class="k-edit-field">
+                    <div data-bind="value:recurrenceRule" name="recurrenceRule" data-role="recurrenceeditor"></div>
+                </div>
+
+                <div class="k-edit-label"><label for="quantity">Quantity</label></div>
+                <div data-container-for="quantity" class="k-edit-field">
+                    <input name="quantity" class="k-textbox" data-bind="value:quantity" />
+                </div>
+
+
+                <div class="k-edit-label"><label for="description">Description</label></div>
+                <div data-container-for="description" class="k-edit-field">
+                    <textarea name="description" class="k-textbox" data-bind="value:description"></textarea>
+                </div>
+
+                <div class="k-edit-label"><label for="RoomID">Room</label></div>
+                <div data-container-for="RoomID" class="k-edit-field">
+                    <select id="RoomID" data-bind="value:RoomID" data-role="dropdownlist"
+                            data-value-field="value" data-text-field="text" onchange="ondropdownchange(this.value);">
+                        <option value="null">Waiting room</option>
+                        <option value="1">Room 101</option>
+                        <option value="2">Room 102</option>
+                        <option value="3">Room 103</option>
+
+                    </select>
+                </div>
+
+                <div class="k-edit-label"><label for="EmployeeID">Employee</label></div>
+                <div data-container-for="EmployeeID" class="k-edit-field">
+                    <select id="EmployeeID" data-bind="value:EmployeeID" data-role="dropdownlist"
+                            data-value-field="value" data-text-field="text">
+                        <option value="1">kamal</option>
+                        <option value="2">jamal</option>
+
+                    </select>
+                </div>
+
+
+
+            </script>
+
+
+            @*Waiting List, count waiting customer and edit waitng list*@
+
+            <script>
+                angular.module("KendoDemos", ["kendo.directives"])
+                    .controller("Host", function ($scope) {
+                        $scope.Show = function () {
+                            $scope.editPopup.center();
+                            $scope.editPopup.open();
+                        }
+                    }).controller("Popup", function ($scope) {
+                        //$(document).ready(function () {
+
+                        $("#grid").kendoGrid({
+                            dataSource: {
+                                timezone: "Etc/UTC",
+                                type: 'application/json;charset=UTF-8',
+                                transport: {
+                                    read:
+                                    {
+
+                                        url: "/Scheduler/Waiting_Read",
+                                        dataType: "json",
+                                    },
+                                    update: {
+                                        url: "/Scheduler/Appointments_Update",
+                                        type: "POST",
+                                        contentType: 'application/json; charset=utf-8',
+                                        dataType: "json",
+                                    },
+                                    parameterMap: function (options, operation) {
+
+                                        if (operation !== "read") {
+                                            var e;
+                                            var ri;
+                                            var rn;
+                                            var status;
+
+                                            if (options.RoomID !== null && options.RoomID !== '') {
+                                                ri = options.RoomID.value;
+                                                rn = options.RoomID.text;
+                                                status = "booking";
+                                            }
+                                            else {
+                                                if (options.RoomID === '') {
+                                                    rn = '';
+                                                }
+                                                ri = options.RoomID;
+
+                                                status = "waitting";
+                                            }
+
+                                            var appointment = {
+                                                ID: options.ID,
+                                                Title: options.Title,
+                                                Description: options.Description,
+                                                Start: options.Start,
+                                                End: options.End,
+                                                BookingID: options.BookingID,
+                                                Quantity: options.Quantity,
+                                                CustomerID: options.CustomerID,
+                                                RoomID: ri,
+                                                Status: status,
+                                                RoomNumber: rn,
+
+                                                IsAllDay: options.IsAllDay,
+                                                StartTimeZone: '',
+                                                EndTimeZone: '',
+                                                RecurrenceRule: options.RecurrenceRule,
+                                                EmployeeID: options.EmployeeID,
+
+                                            }
+
+                                            return kendo.stringify(appointment);
+
+                                        }
+
+
+                                    }
+                                },
+                                // timezone: "Etc/UTC",
+                                schema: {
+                                    data: "Data",
+                                    model: {
+                                        id: "ID",
+                                        fields: {
+                                            ID: { type: "number" },
+                                            Title: { type: "string" },
+                                            Description: { type: "string" },
+                                            Start: { type: "date" },
+                                            End: { type: "date" },
+                                            BookingID: { type: "string" },
+                                            Quantity: { type: "number" },
+                                            RoomNumber: { type: "string" },
+                                            Status: { type: "string" },
+                                            IsAllDay: { type: "boolean" },
+                                            StartTimeZone: { type: "string" },
+                                            EndTimeZone: { type: "string" },
+                                            RecurrenceRule: { type: "string" },
+                                            RecurrenceException: { visible: false, editable: false, type: "string" }
+                                        }
+                                    }
+
+                                },
+                                requestEnd: function (e) {
+
+                                    if (e.type === "create") {
+
+                                        this.read();
+                                        for (var i = 0; i < e.response.Data.length; i++) {
+                                            if (e.response.Data[i].IsBooked === false) {
+                                                // alert('Waiting Successfull');
+                                                kendo.alert(" Successfull").wrapper.width("30em").find(".k-window-title").html("<b class='custom'>Confirmation</b>");
+                                            }
+                                            else {
+                                                //alert('can not possible duplicate entry.');
+                                                kendo.alert("can not possible duplicate entry.").wrapper.width("30em").find(".k-window-title").html("<b class='custom'>Confirmation</b>");
+
+                                            }
+                                        }
+
+                                    }
+                                },
+                                pageSize: 20,
+                            },
+                            height: 550,
+                            groupable: true,
+                            sortable: true,
+                            pageable: {
+                                refresh: true,
+                                pageSizes: true,
+                                buttonCount: 5,
+                            },
+                            dataBound: function () {
+                                this.expandRow(this.tbody.find("tr.k-master-row").first());
+                            },
+                            columns: [
+                                {
+                                    field: "Photo",
+                                    template: function (dataItem) {
+                                        return kendo.template('<img src="#= Photo #" alt="image" width="80px" height="80px" />')({ Photo: dataItem.Photo || 'https://www.flaticon.com/svg/static/icons/svg/1077/1077012.svg' });
+                                    },
+
+                                },
+                                { field: "Title", title: "Customer" },
+                                //  { field: "Description" },
+                                { field: "Start", template: '#= kendo.toString(Start,"yyyy/MM/dd hh:mm tt") #' },
+                                { field: "End", template: '#= kendo.toString(End,"yyyy/MM/dd hh:mm tt") #' },
+                                //   { field: "End" },
+                                // { field: "BookingID" },
+                                { field: "Quantity" },
+                                // { field: "Status" },
+                                // { field: "RoomNumber" },
+                                //   { field: "IsAllDay" },
+                                { field: "PhoneNumber1", title: "Phone" },
+                                //   { field: "RecurrenceRule", title: "RecurrenceRule" },
+                                //   { field: "RecurrenceException", title: "RecurrenceException" },
+                                { command: ["edit"], width: 180 }
+                            ],
+                            editable: {
+                                mode: "popup",
+                                template: kendo.template($("#customEditorTemplates").html())
+                            }
+
+                        });
+
+
+
+                    });
+                //  });
+                function ondropdownchange(value) {
+                    var Start = $("[name='Start']").val();
+                    var End = $("[name='End']").val();
+                    $.get('/Booking/GetBookingStatus', {
+                        RoomId: value,
+                        start: Start,
+                        end: End
+                    }).then(
+                        function (data) {
+                            if (data === true) {
+                                alert('Alrady Booked')
+                                //
+                            }
+                        },
+                        function (errorResponse) {
+                            // handle errors here
+                        });
+
+                }
+
+            </script>
+
+
+            @*Waiting list customized template*@
+            <script type="text/x-kendo-template" id="customEditorTemplates">
+
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="k-edit-label"><label for="title" style=" margin-left: 62px;">Customer</label></div>
+                        @*Customer name Autocomplete*@
+                        <div data-container-for="title" data-bind="value:title" class="k-edit-field">
+
+                            @(Html.Kendo().AutoComplete()
+                            .Name("Title")
+                            .DataTextField("Title")
+                            .Filter("contains")
+                            .DataSource(source => source.Read(read => read.Action("Template_GetCustomers", "Scheduler")
+                            .Data("OnAddAuto")) .ServerFiltering(true)) .HtmlAttributes(new { required = "required" })
+                            .Placeholder("Customer Name..").Events(e => e.Select("selectCustomerid")
+                            .Change("onChangeMyTextBox")).ToClientTemplate())
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-5">
+                        <a href="/CreateCustomers/Create" class="k-button w3-button w3-black">
+                            <span class="k-icon k-i-plus"></span>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <div data-container-for="customerID" class="k-edit-field">
+                    <input type="hidden" name="CustomerID" class="k-textbox" data-text-field="text" data-bind="value:CustomerID" />
+
+                </div>
+
+
+                <div class="k-edit-label"><label for="bookingID">Code</label></div>
+                <div data-container-for="bookingID" class="k-edit-field">
+                    <input type="text" name="BookingID" class="k-textbox" data-bind="value:BookingID" />
+
+                </div>
+
+
+                <div class="k-edit-label">
+                    <label for="start">Start</label>
+                </div>
+                <div data-container-for="start" class="k-edit-field">
+                    <input type="text"
+                           data-role="datetimepicker"
+                           data-interval="15"
+                           data-type="date"
+                           data-bind="value:Start,invisible:isAllDay"
+                           name="Start" />
+                    <input type="text" data-type="date" data-role="datepicker" data-bind="value:Start,visible:isAllDay" name="Start" />
+                    <span data-bind="text: startTimezone"></span>
+                    <span data-for="Start" class="k-invalid-msg" style="display: none;"></span>
+                </div>
+                <div class="k-edit-label"><label for="end">End</label></div>
+                <div data-container-for="End" class="k-edit-field">
+                    <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:End,invisible:isAllDay" name="End" data-datecompare-msg="End date should be greater than or equal to the start date" />
+                    <input type="text" data-type="date" data-role="datepicker" data-bind="value:End,visible:isAllDay" name="End" data-datecompare-msg="End date should be greater than or equal to the start date" />
+                    <span data-bind="text: endTimezone"></span>
+                    <span data-bind="text: startTimezone, invisible: endTimezone"></span>
+                    <span data-for="End" class="k-invalid-msg" style="display: none;"></span>
+                </div>
+                <div class="k-edit-label"><label for="isAllDay">All day event</label></div>
+                <div data-container-for="isAllDay" class="k-edit-field">
+                    <input type="checkbox" name="isAllDay" data-type="boolean" data-bind="checked:isAllDay">
+                </div>
+                <div class="k-edit-label"><label for="recurrenceRule">Repeat</label></div>
+                <div data-container-for="recurrenceRule" class="k-edit-field">
+                    <div data-bind="value:RecurrenceRule" name="RecurrenceRule" data-role="recurrenceeditor"></div>
+                </div>
+
+                <div class="k-edit-label"><label for="quantity">Quantity</label></div>
+                <div data-container-for="quantity" class="k-edit-field">
+                    <input name="Quantity" class="k-textbox" data-bind="value:Quantity" />
+                </div>
+
+
+                <div class="k-edit-label"><label for="description">Description</label></div>
+                <div data-container-for="description" class="k-edit-field">
+                    <textarea name="Description" class="k-textbox" data-bind="value:Description"></textarea>
+                </div>
+
+                <div class="k-edit-label"><label for="roomID">Room</label></div>
+                <div data-container-for="roomID" class="k-edit-field">
+
+                    <select id="RoomID" data-bind="value:RoomID" data-role="dropdownlist"
+                            data-value-field="value" data-text-field="text" onchange="ondropdownchange(this.value);">
+                        <option value="">Waiting Room </option>
+                        <option value="1">Room 101</option>
+                        <option value="2">Room 102</option>
+                        <option value="3">Room 103</option>
+
+                    </select>
+                </div>
+
+                <div class="k-edit-label"><label for="EmployeeID">Employee</label></div>
+                <div data-container-for="EmployeeID" class="k-edit-field">
+                    <select id="EmployeeID" data-bind="value:EmployeeID" data-role="dropdownlist"
+                            data-value-field="value" data-text-field="text">
+                        <option value="1">kamal</option>
+                        <option value="2">jamal</option>
+
+                    </select>
+                </div>
+
+            </script>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    @*Booking Button*@
+    <script type="text/x-kendo-template" id="okay_templeate">
+
+        <div class="row ">
+            <div class="col-md-5">
+                <div class="k-edit-label"><label for="title" style=" margin-left: 62px;">Customer</label></div>
+                <div data-container-for="title" data-bind="value:title" class="k-edit-field">
+
+                    @(Html.Kendo().AutoComplete()
+                            .Name("Title")
+                            .DataTextField("Title")
+                            .Filter("contains")
+                            .DataSource(source => source.Read(read => read.Action("Template_GetCustomers", "Scheduler")
+                            .Data("OnAddAuto")) .ServerFiltering(true)) .HtmlAttributes(new { required = "required" })
+                            .Placeholder("Customer Name..").Events(e => e.Select("selectCustomerid")
+                            .Change("onChangeMyTextBox")).ToClientTemplate())
+
+                </div>
+            </div>
+
+
+            <div class="col-md-5">
+                <a href="/CreateCustomers/Create" class="k-button w3-button w3-black">
+                    <span class="k-icon k-i-plus"></span>
+                </a>
+
+            </div>
+        </div>
+
+
+        <div data-container-for="customerID" class="k-edit-field">
+            <input type="hidden" name="CustomerID" class="k-textbox" data-text-field="text" data-bind="value:CustomerID" />
+
+        </div>
+
+
+        <div class="k-edit-label"><label for="bookingID">Code</label></div>
+        <div data-container-for="bookingID" class="k-edit-field">
+            <input type="text" name="BookingID" class="k-textbox" data-bind="value:BookingID" />
+
+        </div>
+
+
+        <div class="k-edit-label">
+            <label for="start">Start</label>
+        </div>
+        <div data-container-for="start" class="k-edit-field">
+            <input type="text"
+                   data-role="datetimepicker"
+                   data-interval="15"
+                   data-type="date"
+                   data-bind="value:Start,invisible:isAllDay"
+                   name="Start" />
+            <input type="text" data-type="date" data-role="datepicker" data-bind="value:Start,visible:isAllDay" name="Start" />
+            <span data-bind="text: startTimezone"></span>
+            <span data-for="Start" class="k-invalid-msg" style="display: none;"></span>
+        </div>
+        <div class="k-edit-label"><label for="end">End</label></div>
+        <div data-container-for="End" class="k-edit-field">
+            <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:End,invisible:isAllDay" name="End" data-datecompare-msg="End date should be greater than or equal to the start date" />
+            <input type="text" data-type="date" data-role="datepicker" data-bind="value:End,visible:isAllDay" name="End" data-datecompare-msg="End date should be greater than or equal to the start date" />
+            <span data-bind="text: endTimezone"></span>
+            <span data-bind="text: startTimezone, invisible: endTimezone"></span>
+            <span data-for="End" class="k-invalid-msg" style="display: none;"></span>
+        </div>
+        <div class="k-edit-label"><label for="isAllDay">All day event</label></div>
+        <div data-container-for="isAllDay" class="k-edit-field">
+            <input type="checkbox" name="isAllDay" data-type="boolean" data-bind="checked:isAllDay">
+        </div>
+        <div class="k-edit-label"><label for="recurrenceRule">Repeat</label></div>
+        <div data-container-for="recurrenceRule" class="k-edit-field">
+            <div data-bind="value:RecurrenceRule" name="RecurrenceRule" data-role="recurrenceeditor"></div>
+        </div>
+
+        <div class="k-edit-label"><label for="quantity">Quantity</label></div>
+        <div data-container-for="quantity" class="k-edit-field">
+            <input name="Quantity" class="k-textbox" data-bind="value:Quantity" />
+        </div>
+
+
+        <div class="k-edit-label"><label for="description">Description</label></div>
+        <div data-container-for="description" class="k-edit-field">
+            <textarea name="Description" class="k-textbox" data-bind="value:Description"></textarea>
+        </div>
+
+        <div class="k-edit-label"><label for="roomID">Room</label></div>
+        <div data-container-for="roomID" class="k-edit-field">
+
+            <select id="RoomID" data-bind="value:RoomID" data-role="dropdownlist"
+                    data-value-field="value" data-text-field="text" onchange="ondropdownchange(this.value);">
+                <option value="">Waiting Room </option>
+                <option value="1">Room 101</option>
+                <option value="2">Room 102</option>
+                <option value="3">Room 103</option>
+
+            </select>
+        </div>
+
+        <div class="k-edit-label"><label for="EmployeeID">Employee</label></div>
+        <div data-container-for="EmployeeID" class="k-edit-field">
+            <select id="EmployeeID" data-bind="value:EmployeeID" data-role="dropdownlist"
+                    data-value-field="value" data-text-field="text">
+                <option value="1">kamal</option>
+                <option value="2">jamal</option>
+
+            </select>
+        </div>
+
+    </script>
+
+
+
+
+    <script>
+        $(function () {
+            $("#open").on("click", function () {
+                var w2 = kendo.template("#okay_templeate").html();
+             $("#container").append(w2);
+                w2.kendoWindow({
+                   // content:kendo.template("#okay_templeate").html(),
+                    width: 500,
+                    height: 500,
+                    modal: true,
+                   
+                }).data("kendoWindow").center();
+               
+               
+            });
+           
+
+        });
+    </script>
+
+
+
+</body>
+</html>
+
+
+

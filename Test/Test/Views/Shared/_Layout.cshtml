@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title Booking System</title>
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.blueopal.min.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Layout.css")" rel="stylesheet" type="text/css" />
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/angular.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Scheduler.js")"></script>
+    <script src="@Url.Content("~/Scripts/WaitingList.js")"></script>
+    <script src="@Url.Content("~/Scripts/BookingList.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+</head>
+<body class="k-content">
+    <header class="header-area overlay">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <div class="container">
+                <a href="#" class="navbar-brand">POS365.com</a>
+
+                <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#main-nav">
+                    <span class="menu-icon-bar"></span>
+                    <span class="menu-icon-bar"></span>
+                    <span class="menu-icon-bar"></span>
+                </button>
+
+                <div id="main-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        @*<li><a href="http://localhost:65133/Scheduler/Index" class="nav-item nav-link btn-primary">Scheduler</a></li>
+                        <li><a href="http://localhost:65133/Booking/Index" class="nav-item nav-link btn-primary">Booking</a></li>*@
+                        @*<li class="dropdown">
+                                <a href="#" class="nav-item nav-link" data-toggle="dropdown">Customer</a>
+                                <div class="dropdown-menu">
+                                    <a href="http://localhost:65133/CreateCustomers/index" class="dropdown-item">Index</a>
+                                    <a href="http://localhost:65133/CreateCustomers/Create" class="dropdown-item">Create</a>
+
+                                </div>
+                            </li>*@
+
+                        @*<li><a href="http://localhost:65133/CreateCustomers/Create" class="nav-item nav-link btn-primary">Customer Info</a></li>*@
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+
+        @*<div class="banner">
+                <div class="container">
+                    <h1>Bootstrap 4 Navbar</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec elit ex. Etiam elementum lectus et tempor molestie.</p>
+                    <a href="#content" class="button button-primary">Learn More</a>
+                </div>
+            </div>*@
+    </header>
+
+    <main>
+        <div class="container">
+            @RenderSection("featured", required: false)
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer text-center d-flex align-items-center">
+        <div class="container pb-0">
+            <hr />
+            @*<p>Copyright &copy; @DateTime.Now.Year Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.</p>*@
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+            $("#menu").kendoMenu();
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
+</body>
+</html>

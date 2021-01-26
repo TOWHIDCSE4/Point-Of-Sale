@@ -1,0 +1,181 @@
+﻿
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/Customer.js"></script>
+
+<div class="container">
+    <h2>Customer Record</h2>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Customer</button><br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    CustomerCode
+                </th>
+                <th>
+                    PhoneNumber1
+                </th>
+                <th>
+                    PhoneNumber2
+                </th>
+                <th>
+                    Address1
+                </th>
+                <th>
+                    Address2
+                </th>
+                <th>
+                    DateOfBirth
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Company
+                </th>
+
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+
+
+
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Add Customer</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="CustomerCode">Customer Code</label>
+                            <input type="text" class="form-control" id="CustomerCode" placeholder="CustomerCode" disabled="disabled" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" id="Name" placeholder="Name" />
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="PhoneNumber1">PhoneNumber1</label>
+                            <input type="text" class="form-control" id="PhoneNumber1" placeholder="PhoneNumber1" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="PhoneNumber2">PhoneNumber2</label>
+                            <input type="text" class="form-control" id="PhoneNumber2" placeholder="PhoneNumber2" />
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="Address1">Address1</label>
+                            <input type="text" class="form-control" id="Address1" placeholder="Address1" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="Address2">Address2</label>
+                            <input type="text" class="form-control" id="Address2" placeholder="Address2" />
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="Province">Province</label>
+                            <input type="text" class="form-control" id="Province" placeholder="Province" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="DateOfBirth">DateOfBirth</label>
+                            <input type="date" class="form-control" id="DateOfBirth" placeholder="DateOfBirth" />
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control" id="Email" placeholder="Email" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="Company">Company</label>
+                            <input type="text" class="form-control" id="Company" placeholder="Company" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="Department">Department</label>
+                            <input type="text" class="form-control" id="Department" placeholder="Department" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="CurrentDebt">CurrentDebt</label>
+                            <input type="text" class="form-control" id="CurrentDebt" placeholder="CurrentDebt" />
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="BonusPoint">BonusPoint</label>
+                            <input type="text" class="form-control" id="BonusPoint" placeholder="BonusPoint" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="TaxCode">TaxCode</label>
+                            <input type="text" class="form-control" id="TaxCode" placeholder="TaxCode" />
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="ManagedBy">ManagedBy</label>
+                            <input type="text" class="form-control" id="ManagedBy" placeholder="ManagedBy" />
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="Group">Group</label>
+                            <input type="text" class="form-control" id="Group" placeholder="Group" />
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="form-group">
+                            <label for="Image">Image</label>
+                         
+                        </div>
+                        <div class="form-group" style="margin-left: 20px;">
+                            
+                            
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>  
